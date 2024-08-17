@@ -55,7 +55,7 @@ class Player{
     draw(){
         ctx.strokeStyle = 'lime';
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.dw/2,0,359);
+        ctx.arc(this.x,this.y,this.dw/2,0,7);
         ctx.stroke();
         ctx.save();
         rotate(this,this.dir);
@@ -99,7 +99,7 @@ class Laser{
     draw(){
         // CIRCLE
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.dw,0,359);
+        ctx.arc(this.x,this.y,this.dw,0,7);
         ctx.fillStyle='white';
         ctx.fill();
     }
