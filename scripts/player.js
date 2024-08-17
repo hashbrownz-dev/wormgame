@@ -2,8 +2,8 @@ class Player{
     constructor(){
         this.x = 400;
         this.y = 300;
-        this.dw = 48;
-        this.dh = 48;
+        this.dw = 16;
+        this.dh = 16;
         this.dir = 0;
         this.xs = 0;
         this.ys = 0;
@@ -22,7 +22,7 @@ class Player{
         // Blasters
         this.shot--;
         if(Mouse.l && this.shot <= 0){
-            const bspawn = getDestination(24, this.dir);
+            const bspawn = getDestination(this.dw/2, this.dir);
             Game.projectiles.push(new Laser(this.x + bspawn.x,this.y + bspawn.y,this.dir));
             this.shot = 10;
         }
@@ -75,8 +75,8 @@ class Laser{
     constructor(x,y,dir){
         this.x = x;
         this.y = y;
-        this.dw = 10;
-        this.dh = 10;
+        this.dw = 4;
+        this.dh = 2;
         this.dir = dir;
         this.speed = 10;
         this.decay = 50;
@@ -99,7 +99,7 @@ class Laser{
     draw(){
         // CIRCLE
         ctx.beginPath();
-        ctx.arc(this.x,this.y,7,0,359);
+        ctx.arc(this.x,this.y,this.dw,0,359);
         ctx.fillStyle='white';
         ctx.fill();
     }
