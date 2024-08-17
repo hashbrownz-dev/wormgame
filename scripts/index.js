@@ -1,5 +1,6 @@
 const main = () => {
     let pt;
+    const _Game = new Game();
 
     const update = (ts) => {
         if(!pt) pt = ts;
@@ -18,6 +19,8 @@ const main = () => {
         ctx.scale(s,s);
 
         // Get State(?)
+
+        _Game.update();
 
         // Draw HUD
         // Reset Transform
