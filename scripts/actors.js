@@ -62,11 +62,12 @@ class Worm {
 
     }
     update(game){
-        // this.prevPos.push({
-        //     x:this.x,
-        //     y:this.y,
-        //     dir:this.dir,
-        // })
+        this.prevPos.push({
+            x:this.x,
+            y:this.y,
+            dir:this.dir,
+        })
+        if(this.prevPos.length > this.gap * this.children.length) this.prevPos.shift();
         // update target
         this.target = game.player;
         // update dir
@@ -84,18 +85,18 @@ class Worm {
             console.log(this.dir);
         }
         // pass prev pos to children
-        for(let i = 0; i < this.children.length; i++){
-            if(!i){
-                const { x,y,dir } = this;
-                this.children[i] = {x,y,dir};
-            }else{
-                const { x,y,dir } = this.children[i-1];
-                this.children[i] = { x,y,dir };
+        for(let i = 1; i <= this.children.length; i++){
+            let bPos = this.prevPos.length - (this.gap * i);
+            if(bPos < 0) bPos = 0;
+            const {x,y,dir} = this.prevPos[bPos];
+            this.children[i-1] = {
+                x,
+                y,
+                dir,
             }
         }
         // update pos
         const theta = degToRad(this.dir);
-        // const ny = this.speed * Math.sin(theta), nx = this.speed * Math.cos(theta);
         this.y += this.speed * Math.sin(theta);
         this.x += this.speed * Math.cos(theta);
     }
