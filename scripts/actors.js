@@ -45,6 +45,7 @@ class Worm {
         this.r = 12;
         this.prevPos = [];
         this.gap = 10;
+        this.clear = false;
     }
     getTarget(game){
         // target nearest fruit
@@ -60,6 +61,47 @@ class Worm {
             return game.player;
         }
 
+    }
+    colCheck(game){
+        // Projectiles
+        game.projectiles.forEach( p => {
+            if(!p.clear){
+                // Head
+                if(colCircPoint(this,p)){
+                    p.clear = true;
+                    this.clear = true;
+                    // Create a new Worm using child 1 as the new head...
+                    if(this.children.length){
+                        const { x,y,dir } = this.children.shift();
+                        const nw = new Worm(x,y,dir,this.speed,this.children);
+                        nw.prevPos = this.prevPos.slice(0, this.gap * this.children.length);
+                        game.worms.push(nw);
+                    }
+                    return;
+                } else {
+                    // Body
+                    for(let i = 0; i < this.children.length; i++){
+                        if(colCircPoint({ x:this.children[i].x, y:this.children[i].y, r:this.r },p)){
+                            p.clear = true;
+                            let tl = this.children.length;
+                            // new worm
+                            if( i+1 < this.children.length){
+                                const children = this.children.slice(i+1);
+                                const { x,y,dir } = children.shift();
+                                const nw = new Worm(x,y,dir,this.speed,children);
+                                nw.prevPos = this.prevPos.slice(0, children.length * this.gap);
+                                game.worms.push(nw);
+                                
+                            }
+                            // shrink worm
+                            this.children = this.children.slice(0,i);
+                            this.prevPos = this.prevPos.slice((tl-i)*this.gap);
+                            return;
+                        }
+                    }
+                }
+            }
+        })
     }
     update(game){
         this.prevPos.push({
@@ -110,6 +152,7 @@ class Worm {
             ctx.fill();
         }
         // draw head
+        ctx.fillStyle = 'red';
         ctx.beginPath();
         ctx.arc(this.x,this.y,this.r,0,7);
         ctx.fill();

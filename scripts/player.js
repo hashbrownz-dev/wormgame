@@ -75,18 +75,11 @@ class Laser{
     constructor(x,y,dir){
         this.x = x;
         this.y = y;
-        this.dw = 4;
-        this.dh = 2;
+        this.r = 4;
         this.dir = dir;
         this.speed = 10;
         this.decay = 50;
         this.clear = false;
-    }
-    get dx(){
-        return this.x - (this.dw/2);
-    }
-    get dy(){
-        return this.y - (this.dh/2);
     }
     update(){
         this.decay--;
@@ -99,7 +92,7 @@ class Laser{
     draw(){
         // CIRCLE
         ctx.beginPath();
-        ctx.arc(this.x,this.y,this.dw,0,7);
+        ctx.arc(this.x,this.y,this.r,0,7);
         ctx.fillStyle='white';
         ctx.fill();
     }

@@ -75,6 +75,11 @@ const colCircPoint = (circ, point) => {
     return dist < circ.r;
 }
 
+const colCirc = (c1,c2) => {
+    const dist = getDistance(c1,c2);
+    return dist < c1.r + c2.r;
+}
+
 // UTILITY
 
 const getRandom = (min, max) => {
