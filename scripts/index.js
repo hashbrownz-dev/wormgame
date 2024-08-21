@@ -1,3 +1,6 @@
+const _BG = new Image();
+_BG.src = './assets/temp/bg.jpg';
+
 const main = () => {
     let pt;
     const _Game = new Game();
@@ -9,10 +12,6 @@ const main = () => {
 
         // Clear Screen
         ctx.clearRect(0,0,viewport.width, viewport.height);
-
-        // Draw BGC
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0,0,viewport.width,viewport.height);
 
         // Set Global Scale
         const s = vScale;

@@ -3,7 +3,8 @@ class Game {
         this.score = 0;
         this.lives = 3;
         this.rank = 0;
-        this.player = new Player();
+        this.view = new ViewBox(2635,1407);
+        this.player = new Player(this.view.cx,this.view.cy);
         this.worms = [];
         this.fruits = [];
         this.projectiles = [];
@@ -33,9 +34,14 @@ class Game {
         this.draw();
     }
     draw(){
+        ctx.save();
+        ctx.translate(-this.view.x, -this.view.y);
+        // Draw BG
+        ctx.drawImage(_BG,0,0);
         if(this.player)this.player.draw();
         this.worms.forEach( w => w.draw());
         this.fruits.forEach( f => f.draw());
         this.projectiles.forEach( p => p.draw());
+        ctx.restore();
     }
 }

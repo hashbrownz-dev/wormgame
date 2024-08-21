@@ -1,7 +1,7 @@
 class Player{
-    constructor(){
-        this.x = 400;
-        this.y = 300;
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
         this.dw = 16;
         this.dh = 16;
         this.dir = 0;
@@ -17,8 +17,13 @@ class Player{
         return this.y - (this.dh/2);
     }
     update(Game){
+        // Get Player's Client Coords
+        const clientCoords = {
+            x:this.x - Game.view.x,
+            y:this.y - Game.view.y
+        }
         // Get direction to mouse
-        this.dir = getDirection(this,Mouse);
+        this.dir = getDirection(clientCoords,Mouse);
         // Blasters
         this.shot--;
         if(Mouse.l && this.shot <= 0){
@@ -51,6 +56,8 @@ class Player{
             this.x = nx;
             this.y = ny;
         }
+        // Update View
+        Game.view.update(this.x,this.y);
     }
     draw(){
         ctx.strokeStyle = 'lime';

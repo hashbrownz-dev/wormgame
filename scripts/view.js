@@ -107,4 +107,25 @@ const degToRad = (deg) => Math.PI / 180 * deg;
  */
 const radToDeg = (rad) => 180 / Math.PI * rad;
 
-// drawSprite(?)
+class ViewBox {
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+        this.w = viewport.width;
+        this.h = viewport.height;
+    }
+    get cx(){
+        return this.x + (this.w / 2);
+    }
+    get cy(){
+        return this.y + (this.h / 2);
+    }
+    update(x,y){
+        this.x = x - (this.w / 2);
+        if(this.x < 0) this.x = 0;
+        if(this.x > 6070 - this.w) this.x = 6070 - this.w;
+        this.y = y - (this.h / 2);
+        if(this.y < 0) this.y = 0;
+        if(this.y > 3414 - this.h) this.y = 3414 - this.h;
+    }
+}
