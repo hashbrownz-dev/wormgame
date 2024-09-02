@@ -42,7 +42,7 @@ class Worm {
         this.speed = speed;
         this.children = children;
         this.target = Object(null);
-        this.r = 12;
+        this.r = 19;
         this.prevPos = [];
         this.gap = 10;
         this.clear = false;
@@ -143,18 +143,17 @@ class Worm {
         this.x += this.speed * Math.cos(theta);
     }
     draw(){
-        ctx.fillStyle = 'lime';
         // draw body
-        for(let i = this.children.length - 1; i >= 0; i--){
+        for(let i = this.children.length - 1; i >=0; i--){
             const seg = this.children[i];
-            ctx.beginPath();
-            ctx.arc(seg.x,seg.y,this.r,0,7);
-            ctx.fill();
+            ctx.drawImage(_TempWorm,seg.x - this.r, seg.y - this.r);
         }
         // draw head
-        ctx.fillStyle = 'red';
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.r,0,7);
-        ctx.fill();
+        ctx.save();
+        ctx.translate(this.x,this.y);
+        ctx.rotate(degToRad(this.dir));
+        ctx.translate(-this.x,-this.y);
+        ctx.drawImage(_TempWormH,this.x-this.r,this.y-this.r);
+        ctx.restore();
     }
 }

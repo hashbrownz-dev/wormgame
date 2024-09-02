@@ -123,9 +123,9 @@ class ViewBox {
     update(x,y){
         this.x = x - (this.w / 2);
         if(this.x < 0) this.x = 0;
-        if(this.x > 6070 - this.w) this.x = 6070 - this.w;
+        if(this.x > 2400 - this.w) this.x = 2400 - this.w;
         this.y = y - (this.h / 2);
         if(this.y < 0) this.y = 0;
-        if(this.y > 3414 - this.h) this.y = 3414 - this.h;
+        if(this.y > 1800 - this.h) this.y = 1800 - this.h;
     }
 }

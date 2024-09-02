@@ -1,6 +1,11 @@
 const _BG = new Image();
 _BG.src = './assets/temp/bg.jpg';
 
+const _TempWorm = new Image();
+_TempWorm.src = './assets/temp/gworm.png';
+const _TempWormH = new Image();
+_TempWormH.src = './assets/temp/gwormhead.png';
+
 const main = () => {
     let pt;
     const _Game = new Game();

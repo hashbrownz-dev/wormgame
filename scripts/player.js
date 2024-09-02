@@ -2,6 +2,7 @@ class Player{
     constructor(x,y){
         this.x = x;
         this.y = y;
+        this.r = 8;
         this.dw = 16;
         this.dh = 16;
         this.dir = 0;
@@ -15,6 +16,14 @@ class Player{
     }
     get dy(){
         return this.y - (this.dh/2);
+    }
+    colCheck(game){
+        game.currentLevel.forEach( line => {
+            if(colCircLine(this,line)){
+                // this.xs *= -1;
+                // this.ys *= -1;
+            }
+        })
     }
     update(Game){
         // Get Player's Client Coords
@@ -87,6 +96,14 @@ class Laser{
         this.speed = 10;
         this.decay = 50;
         this.clear = false;
+    }
+    colCheck(game){
+        // Boundaries
+        game.currentLevel.forEach( poly => {
+            if(colPolyPoint(poly,this)){
+                this.clear = true;
+            }
+        })
     }
     update(){
         this.decay--;

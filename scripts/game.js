@@ -3,7 +3,8 @@ class Game {
         this.score = 0;
         this.lives = 3;
         this.rank = 0;
-        this.view = new ViewBox(2635,1407);
+        this.currentLevel = loadLevel(_TestLevel);
+        this.view = new ViewBox(800,600);
         this.player = new Player(this.view.cx,this.view.cy);
         this.worms = [];
         this.fruits = [];
@@ -28,16 +29,32 @@ class Game {
         this.projectiles.forEach(proj => proj.update(this));
         // Check for Collisions
         this.worms.forEach( w => w.colCheck(this));
+        this.projectiles.forEach(p => p.colCheck(this));
         // Clear
         this.worms = this.worms.filter( w => !w.clear );
         this.projectiles = this.projectiles.filter( p => !p.clear );
         this.draw();
+    }
+    drawLevelCol(){
+        ctx.strokeStyle = 'lime';
+        ctx.lineWidth = 2;
+        this.currentLevel.forEach( s => {
+            for(let i = 0; i < s.length; i++){
+                const c = s[i];
+                const n = i + 1 < s.length ? s[i+1] : s[0];
+                ctx.beginPath();
+                ctx.moveTo(c.x,c.y);
+                ctx.lineTo(n.x,n.y);
+                ctx.stroke();
+            }
+        })
     }
     draw(){
         ctx.save();
         ctx.translate(-this.view.x, -this.view.y);
         // Draw BG
         ctx.drawImage(_BG,0,0);
+        this.drawLevelCol();
         if(this.player)this.player.draw();
         this.worms.forEach( w => w.draw());
         this.fruits.forEach( f => f.draw());
